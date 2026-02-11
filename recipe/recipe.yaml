@@ -1,0 +1,36 @@
+context:
+    version: 0.7.1
+
+package:
+    name: clean-text
+    version: ${{ version }}
+
+source:
+    - url: https://pypi.org/packages/source/c/clean-text/clean_text-${{ version }}.tar.gz
+      sha256: 44805f001bba23467a0f993f1144b51823d66c5284f18574d4ac08594bffbf42
+
+build:
+    script: ${{ PYTHON }} -m pip install .
+    noarch: python
+
+requirements:
+    host:
+        - python >=3.9
+        - poetry-core>=1.0.0
+        - pip
+    run:
+        - python >=3.9
+        - emoji >=2.1.0
+        - ftfy <7.0,>=6.0
+        - unidecode <2.0.0,>=1.1.1
+
+tests:
+    - python:
+          imports:
+              - cleantext
+          pip_check: true
+
+about:
+    summary: Functions to preprocess and normalize text.
+    description: 🧹 Python package for text cleaning
+    license: Apache-2.0
