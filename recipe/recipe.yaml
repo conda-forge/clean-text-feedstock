@@ -1,0 +1,44 @@
+context:
+  version: 0.7.1
+
+package:
+  name: clean-text
+  version: ${{ version }}
+
+source:
+  url: https://pypi.org/packages/source/c/clean-text/clean_text-${{ version }}.tar.gz
+  sha256: 44805f001bba23467a0f993f1144b51823d66c5284f18574d4ac08594bffbf42
+
+build:
+  number: 0
+  noarch: python
+  script: python -m pip install . -vv --no-deps --no-build-isolation
+
+requirements:
+  host:
+    - python ${{ python_min }}.*
+    - poetry-core >=1.0.0
+    - pip
+  run:
+    - python >=${{ python_min }}
+    - emoji >=2.1.0
+    - ftfy >=6.0,<7.0
+    - unidecode >=1.1.1,<2.0.0
+
+tests:
+  - python:
+      imports:
+        - cleantext
+      pip_check: true
+      python_version: ${{ python_min }}.*
+
+about:
+  homepage: https://github.com/jfilter/clean-text
+  summary: Functions to preprocess and normalize text.
+  license: Apache-2.0
+  license_file: LICENSE
+
+extra:
+  recipe-maintainers:
+    - FernandezMathieu
+    - moritzwilksch
